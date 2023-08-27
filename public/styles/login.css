@@ -1,0 +1,14 @@
+
+  .login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: hsla(0, 66%, 36%, 0.174);
+    border-radius: 7px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.537);
+    margin-top: 100px;
+  }
+  #button{
+    background-color: rgb(129, 130, 193);
+   
+  }
