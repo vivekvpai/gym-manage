@@ -38,7 +38,11 @@ const db =
   "mongodb+srv://paivivek002:Kevivpai5@cluster0.ljtrdwi.mongodb.net/GYM?retryWrites=true&w=majority";
 // const db = "mongodb://localhost:27017/Alumini";
 mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log("MongoDb connected"))
   .catch((err) => console.log(err));
 
@@ -73,22 +77,11 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 
 const User = require("../models/Users");
-const Faculty = require("../models/Faculty");
 const Admin = require("../models/Admin");
 
-// var fromMessage = []
-
-// const msg = {
-//     to : "jackfrostvaishnav@gmail.com",
-//     from:
-// }
 app.get("", (req, res) => {
   res.render("index");
 });
-
-// app.get('/telegram',(req, res) => {
-//     res.render('telegram')
-// })
 
 app.get("/add", (req, res) => {
   res.render("add");
@@ -188,6 +181,77 @@ app.get("/show", requireLogin, async (req, res) => {
     });
 
     res.render("show", { users, use });
+  }
+});
+
+app.post("/delete/:id", requireLogin, async (req, res) => {
+  const id = req.params.id;
+
+  console.log("id", id);
+
+  try {
+    await User.findByIdAndRemove(id);
+    res.redirect("/show");
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/update/:userId", requireLogin, async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const item = await User.findById(userId);
+    if (!item) {
+      return res.status(404).send("Item not found");
+    }
+    res.render("update", { item });
+  } catch (error) {
+    res.status(500).send("Error fetching item");
+  }
+
+  // res.render('update', { userId });
+});
+
+app.post("/update/:userId", requireLogin, async (req, res) => {
+  const userId = req.params.userId;
+  console.log("userId", userId);
+
+  var selectedDate = new Date(req.body.doj);
+  var epochMilliseconds = selectedDate.getTime();
+  let doj_e = epochMilliseconds;
+
+  var eos = new Date(req.body.doj);
+  eos.setMonth(eos.getMonth() + parseInt(req.body.subscription));
+  eos = eos.toISOString().slice(0, 10);
+
+  eos_e = new Date(eos);
+  // const payload = {
+  //   ...req.body,
+  //   eos: eos,
+  //   eos_e: eos_e.getTime(),
+  //   doj_e: doj_e,
+  // };
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    user.name = req.body.name;
+    user.phone = req.body.phone;
+    user.subscription = parseInt(req.body.subscription);
+    user.doj = req.body.doj;
+    user.eos = eos;
+    user.eos_e = eos_e.getTime();
+    user.doj_e = doj_e;
+
+    await user.save();
+    res.redirect("/show"); // Redirect to a page showing all users
+  } catch (error) {
+    res.status(500).send("Error updating user");
   }
 });
 

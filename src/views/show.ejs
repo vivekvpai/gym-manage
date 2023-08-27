@@ -28,6 +28,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/styles/show .css">
 
     <style>
       .inactive-cell {
@@ -59,7 +60,8 @@
                 <i class="fa fa-lock"></i> Logout
               </button></a
             >
-          </form>        </li>
+          </form>
+        </li>
       </ul>
     </nav>
 
@@ -117,17 +119,7 @@
             </form>
           </div>
 
-          <!-- <div class="col-lg-12">
-            <h2>
-              Total entries of Alumni & Students in Database: <%= use %>
-              <button
-                onclick="exportTableToCSV('Alumini '+ newdate + '.csv')"
-                class="btn btn-primary float-right"
-              >
-                <i class="fas fa-download"></i> Export CSV
-              </button>
-            </h2>
-          </div> -->
+     
 
           <div class="col-lg-12 mt-3">
             <div class="scrol">
@@ -152,8 +144,17 @@
                   <td><%= user.doj %> - <%= user.eos %></td>
                   <td id="status" class="status-cell"><%= user.status %></td>
                   <td>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-info">Update</button>
+                    <!-- <button class="btn btn-danger">Delete</button> -->
+
+                    <form
+                      class="d-inline-flex"
+                      method="post"
+                      action="/delete/<%= user._id %>"
+                    >
+                      <button class="btn btn-danger" >Delete</button>
+                    </form>
+
+                    <a href="/update/<%= user._id %>" class="btn btn-info">Update</a>
                   </td>
                 </tr>
                 <% }%>
