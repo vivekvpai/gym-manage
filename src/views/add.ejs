@@ -19,20 +19,18 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="../../public/styles/add.css" />
+    <link rel="stylesheet" href="/styles/add.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg nav-color">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav nav-item">
           <li class="nav-item">
-            <a class="nav-link active" href="add">Add new Record</a>
+            <a class="nav-link active" href="/add">Add new Record</a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="update">Update</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="show">Show</a>
+            <a class="nav-link" href="/show">Show</a>
           </li>
         </ul>
       </div>
@@ -41,7 +39,7 @@
           <!-- <a class="nav-link active" href="/logout">Logout</a> -->
           <form action="/logout" method="POST">
             <a class="nav-link"
-              ><button class="btn btn-outline-dark">
+              ><button class="btn btn-outline-danger">
                 <i class="fa fa-lock"></i> Logout
               </button></a
             >
@@ -86,10 +84,10 @@
             name="subscription"
           >
             <option selected>Choose...</option>
-            <option value=1>1 month</option>
-            <option value=3>3 month</option>
-            <option value=6>6 month</option>
-            <option value=12>12 month</option>
+            <option value="1">1 month</option>
+            <option value="3">3 month</option>
+            <option value="6">6 month</option>
+            <option value="12">12 month</option>
           </select>
         </div>
         <br />

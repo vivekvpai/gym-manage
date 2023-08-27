@@ -28,7 +28,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/styles/show .css">
+    <link rel="stylesheet" href="/styles/show .css" />
 
     <style>
       .inactive-cell {
@@ -38,25 +38,24 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg nav-color ">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav nav-item">
           <li class="nav-item">
-            <a class="nav-link active" href="add">Add new Record</a>
+            <a class="nav-link active" href="/add">Add new Record</a>
           </li>
+     
           <li class="nav-item">
-            <a class="nav-link" href="update">Update</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="show">Show</a>
+            <a class="nav-link" href="/show">Show</a>
           </li>
         </ul>
       </div>
       <ul class="navbar-nav">
         <li class="nav-item">
+          <!-- <a class="nav-link active" href="/logout">Logout</a> -->
           <form action="/logout" method="POST">
             <a class="nav-link"
-              ><button class="btn btn-outline-dark">
+              ><button class="btn btn-outline-danger">
                 <i class="fa fa-lock"></i> Logout
               </button></a
             >
@@ -68,6 +67,18 @@
     <div class="container-fluid">
       <div class="col-lg-12">
         <div class="row">
+          <div class="col-lg-12">
+            <h2>
+              Total Members: <%= use %>
+              <button
+                onclick="exportTableToCSV('Alumini '+ newdate + '.csv')"
+                class="btn btn-primary float-right"
+              >
+                <i class="fas fa-download"></i> Export CSV
+              </button>
+            </h2>
+          </div>
+
           <div class="col-lg-6 col-sm-auto">
             <form action="/show" method="GET" class="form-group mt-3">
               <div class="form-group">
@@ -119,8 +130,6 @@
             </form>
           </div>
 
-     
-
           <div class="col-lg-12 mt-3">
             <div class="scrol">
               <table class="table table-bordered table-hover">
@@ -151,10 +160,12 @@
                       method="post"
                       action="/delete/<%= user._id %>"
                     >
-                      <button class="btn btn-danger" >Delete</button>
+                      <button class="btn btn-danger">Delete</button>
                     </form>
 
-                    <a href="/update/<%= user._id %>" class="btn btn-info">Update</a>
+                    <a href="/update/<%= user._id %>" class="btn btn-info"
+                      >Update</a
+                    >
                   </td>
                 </tr>
                 <% }%>
