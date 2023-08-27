@@ -72,19 +72,22 @@
     </nav>
 
     <div class="container-fluid mt-3">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2>
-            Total Members: <%= use %>
+      <div class="col-lg-12">
+        <div class="d-flex justify-content-between">
+          <h2>Total Members: <%= use %></h2>
+
+          <div>
             <button
               onclick="exportTableToCSV('Alumini '+ newdate + '.csv')"
-              class="btn btn-primary float-right"
+              class="btn btn-primary"
             >
               <i class="fas fa-download"></i> Export CSV
             </button>
-          </h2>
+          </div>
         </div>
+      </div>
 
+      <div class="row">
         <div class="col-lg-6 col-sm-auto">
           <form action="/show" method="GET" class="form-group mt-3">
             <div class="input-group mb-3">
