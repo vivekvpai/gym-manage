@@ -32,12 +32,7 @@
 
     <link rel="stylesheet" href="/styles/show.css" />
 
-    <style>
-      .inactive-cell {
-        background-color: rgb(255, 0, 0);
-        color: white; /* Optional: Change text color for better contrast */
-      }
-    </style>
+    <style></style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg nav-color">
@@ -73,12 +68,12 @@
 
     <div class="container-fluid mt-3">
       <div class="col-lg-12">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-around">
           <h2>Total Members: <%= use %></h2>
 
           <div>
             <button
-              onclick="exportTableToCSV('Alumini '+ newdate + '.csv')"
+              onclick="exportTableToCSV('PF '+ newdate + '.csv')"
               class="btn btn-primary"
             >
               <i class="fas fa-download"></i> Export CSV
@@ -133,10 +128,11 @@
             </div>
           </form>
         </div>
-
-        <div class="col-lg-12 scrol mt-3">
+      </div>
+      <div class="row justify-content-center  ">
+        <div class="col-md-11 col-12 scrol mt-3">
           <table class="table table-bordered table-hover">
-            <thead class="bg-info text-white">
+            <thead class="table-primary">
               <tr>
                 <th scope="col">id</th>
                 <th scope="col">Name</th>
@@ -153,8 +149,10 @@
               <td><%= user.name %></td>
               <td><%= user.phone %></td>
               <td><%= user.subscription %></td>
-              <td><%= user.doj %> - <%= user.eos %></td>
-              <td id="status" class="status-cell"><%= user.status %></td>
+              <td><%= user.doj %> -- <%= user.eos %></td>
+              <td id="status" class="status-cell text-center">
+                <%= user.status %>
+              </td>
               <td>
                 <!-- <button class="btn btn-danger">Delete</button> -->
 

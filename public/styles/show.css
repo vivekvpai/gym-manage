@@ -9,6 +9,16 @@
   background-color: rgba(136, 136, 136, 0.5);
 }
 
-.scrol{
+.scrol {
   overflow-x: auto;
+}
+
+.status-cell {
+  background: rgba(0, 255, 0, 0.5) !important;
+  color: white !important; /* Optional: Change text color for better contrast */
+}
+
+.inactive-cell {
+  background: rgb(255, 0, 0) !important;
+  color: white !important; /* Optional: Change text color for better contrast */
 }
