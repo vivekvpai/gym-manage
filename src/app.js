@@ -95,9 +95,7 @@ app.post("/add", (req, res) => {
 
   var eos = new Date(req.body.doj);
   eos.setMonth(eos.getMonth() + parseInt(req.body.subscription));
-
   eos = eos.toISOString().slice(0, 10);
-
   eos_e = new Date(eos);
 
   const payload = {
@@ -106,6 +104,8 @@ app.post("/add", (req, res) => {
     eos_e: eos_e.getTime(),
     doj_e: doj_e,
   };
+
+  console.log(payload);
 
   mongodb: User.create(payload, function (err, newCreated) {
     if (err) {
@@ -144,7 +144,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/logout", (req, res) => {
+app.post("/logout", requireLogin, (req, res) => {
   // req.session.user_id = null;
   req.session.destroy();
   res.redirect("/");
@@ -242,7 +242,7 @@ app.post("/update/:userId", requireLogin, async (req, res) => {
 
     user.name = req.body.name;
     user.phone = req.body.phone;
-    user.subscription = parseInt(req.body.subscription);
+    user.subscription = req.body.subscription;
     user.doj = req.body.doj;
     user.eos = eos;
     user.eos_e = eos_e.getTime();

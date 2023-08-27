@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     type: String,
   },
   subscription: {
-    type: Number,
+    type: String,
   },
   doj: {
     type: String,
