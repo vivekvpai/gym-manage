@@ -105,7 +105,6 @@ app.post("/add", (req, res) => {
     doj_e: doj_e,
   };
 
-  console.log(payload);
 
   mongodb: User.create(payload, function (err, newCreated) {
     if (err) {
@@ -151,7 +150,10 @@ app.post("/logout", requireLogin, (req, res) => {
 });
 
 app.get("/show", requireLogin, async (req, res) => {
-  console.log(req.query.search)
+
+  const currentDate = new Date();
+  const epochMilliseconds = currentDate.getTime();
+
   if (req.query.search) {
     count = 1;
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
@@ -161,7 +163,7 @@ app.get("/show", requireLogin, async (req, res) => {
     const use = await User.find({}).countDocuments({});
     // var users = await User.find({ branch: regex });
     users.forEach((element) => {
-      if (element.doj_e == element.eos_e) {
+      if (epochMilliseconds >= element.eos_e) {
         element["status"] = "END";
       } else {
         element["status"] = "ACTIVE";
@@ -173,10 +175,14 @@ app.get("/show", requireLogin, async (req, res) => {
     const users = await User.find({});
     const use = await User.find({}).countDocuments();
 
+
+
     users.forEach((element) => {
-      console.log(element.doj)
-      if (element.doj_e == element.eos_e) {
+
+      if (epochMilliseconds >= element.eos_e) {
         element["status"] = "END";
+        console.log('end')
+
       } else {
         element["status"] = "ACTIVE";
       }
@@ -189,7 +195,6 @@ app.get("/show", requireLogin, async (req, res) => {
 app.post("/delete/:id", requireLogin, async (req, res) => {
   const id = req.params.id;
 
-  console.log("id", id);
 
   try {
     await User.findByIdAndRemove(id);
@@ -218,7 +223,6 @@ app.get("/update/:userId", requireLogin, async (req, res) => {
 
 app.post("/update/:userId", requireLogin, async (req, res) => {
   const userId = req.params.userId;
-  console.log("userId", userId);
 
   var selectedDate = new Date(req.body.doj);
   var epochMilliseconds = selectedDate.getTime();
