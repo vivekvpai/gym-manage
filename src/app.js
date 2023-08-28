@@ -151,11 +151,12 @@ app.post("/logout", requireLogin, (req, res) => {
 });
 
 app.get("/show", requireLogin, async (req, res) => {
+  console.log(req.query.search)
   if (req.query.search) {
     count = 1;
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     var users = await User.find({
-      $or: [{ name: regex }, { subscription: regex }],
+      $or: [{ name: regex }, { subscription: regex }, { doj: regex }, { eos: regex }],
     });
     const use = await User.find({}).countDocuments({});
     // var users = await User.find({ branch: regex });
@@ -173,6 +174,7 @@ app.get("/show", requireLogin, async (req, res) => {
     const use = await User.find({}).countDocuments();
 
     users.forEach((element) => {
+      console.log(element.doj)
       if (element.doj_e == element.eos_e) {
         element["status"] = "END";
       } else {
